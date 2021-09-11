@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/ThingDef[comps/li/@Class="CompProperties_Styleable"]/comps</xpath>
+        <value>
+            <li Class="DelaginatorIdeology.AltarSharing.CompProperties_AltarSharing" />
+        </value>
+    </Operation>
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/ThingDef[comps/li/@Class="CompProperties_Styleable" and not(tickerType)]</xpath>
+        <value>
+            <tickerType>Long</tickerType>
+        </value>
+    </Operation>
+</Patch>

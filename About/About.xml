@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+    <name>Delaginator</name>
+    <author>Pausbrak</author>
+    <packageId>Pausbrak.Delaginator</packageId>
+    <url>https://github.com/RadHazard/RimworldPredictableDrills</url>
+    <supportedVersions>
+        <li>1.3</li>
+    </supportedVersions>
+	<modDependencies>
+		<li>
+			<packageId>brrainz.harmony</packageId>
+			<displayName>Harmony</displayName>
+			<steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077</steamWorkshopUrl>
+		</li>
+	</modDependencies>
+    <description>De-laginate your game!</description>
+</ModMetaData>
