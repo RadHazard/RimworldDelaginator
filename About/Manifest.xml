@@ -3,6 +3,6 @@
     <identifier>Delaginator</identifier>
     <version>1.0.0</version>
     <showCrossPromotions>true</showCrossPromotions>
-    <manifestUri>https://raw.githubusercontent.com/RadHazard/RimworldPredictableDrills/master/About/Manifest.xml</manifestUri>
-    <downloadUri>https://github.com/RadHazard/RimworldPredictableDrills/releases/latest</downloadUri>
+    <manifestUri>https://raw.githubusercontent.com/RadHazard/RimworldDelaginator/master/About/Manifest.xml</manifestUri>
+    <downloadUri>https://github.com/RadHazard/RimworldDelaginator/releases/latest</downloadUri>
 </Manifest>
