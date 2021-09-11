@@ -36,13 +36,7 @@ namespace DelaginatorIdeology.AltarSharing
             if (!pawn.Spawned || pawn.Ideo == null)
                 return null;
 
-            foreach (Thing item in pawn.Map.listerThings.ThingsMatching(ThingRequest.ForGroup(ThingRequestGroup.BuildingArtificial)))
-            {
-                Comp_AltarSharing compStyleable = item.TryGetComp<Comp_AltarSharing>();
-                if (compStyleable != null && compStyleable.Ideology == pawn.Ideo && compStyleable.IsSharedAltar)
-                    return item;
-            }
-            return null;
+            return pawn.Map.GetComponent<MapComp_AltarSharing>()?.SharedAltar(pawn.Ideo);
         }
     }
 }

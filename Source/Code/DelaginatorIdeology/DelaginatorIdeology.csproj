@@ -32,8 +32,8 @@
   <ItemGroup>
     <Compile Include="HarmonyPatches.cs" />
     <Compile Include="AltarSharing\AltarSharingPatch.cs" />
-    <Compile Include="AltarSharing\Comp_AltarSharing.cs" />
     <Compile Include="DelaginatorIdeology.cs" />
+    <Compile Include="AltarSharing\MapComp_AltarSharing.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
