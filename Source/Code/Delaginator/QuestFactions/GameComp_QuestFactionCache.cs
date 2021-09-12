@@ -42,14 +42,10 @@ namespace Delaginator.QuestFactions
         /// <param name="quest">Quest.</param>
         internal void QuestInitiated(Quest quest)
         {
-            Log.Message($"Initiating quest {quest.name}");
             activeQuestCache.Add(quest);
             foreach (var questPart in quest.PartsListForReading.OfType<QuestPart_ExtraFaction>())
-            {
-                Log.Message($"  - Faction {questPart.extraFaction.faction?.Name}");
                 foreach (var pawn in questPart.affectedPawns)
                     PawnAdded(pawn, questPart.extraFaction);
-            }
         }
 
         /// <summary>
@@ -58,14 +54,10 @@ namespace Delaginator.QuestFactions
         /// <param name="quest">Quest.</param>
         internal void QuestEnded(Quest quest)
         {
-            Log.Message($"Ending quest {quest.name}");
             activeQuestCache.Remove(quest);
             foreach (var questPart in quest.PartsListForReading.OfType<QuestPart_ExtraFaction>())
-            {
-                Log.Message($"  - Faction {questPart.extraFaction.faction?.Name}");
                 foreach (var pawn in questPart.affectedPawns)
                     PawnRemoved(pawn, questPart.extraFaction);
-            }
         }
 
         /// <summary>
@@ -75,7 +67,6 @@ namespace Delaginator.QuestFactions
         /// <param name="extraFaction">Extra faction.</param>
         internal void PawnAdded(Pawn pawn, ExtraFaction extraFaction)
         {
-            Log.Message($"Adding {pawn.LabelShort} to {extraFaction.faction?.Name}");
             pawnFactionCache.Add(pawn, extraFaction);
         }
 
@@ -86,7 +77,6 @@ namespace Delaginator.QuestFactions
         /// <param name="extraFaction">Extra faction.</param>
         internal void PawnRemoved(Pawn pawn, ExtraFaction extraFaction)
         {
-            Log.Message($"Removing {pawn.LabelShort} from {extraFaction.faction?.Name}");
             pawnFactionCache.Remove(pawn, extraFaction);
         }
 
