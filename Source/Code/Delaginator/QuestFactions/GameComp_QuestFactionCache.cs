@@ -88,8 +88,21 @@ namespace Delaginator.QuestFactions
         /// <param name="forQuest">For quest.</param>
         public void GetExtraFactionsCached(Pawn pawn, List<ExtraFaction> outExtraFactions, Quest forQuest)
         {
+            // Note that the faction cache includes all factions from all Ongoing quests.
+            // Vanilla always checks those, even if forQuest is set
             outExtraFactions.Clear();
             outExtraFactions.AddRange(pawnFactionCache[pawn]);
+
+            // If the quest is ongoing, factions were already included in the cache.
+            // If not, we need to add them ourselves
+            if (forQuest?.State != QuestState.Ongoing)
+            {
+                outExtraFactions.AddRange(forQuest.PartsListForReading
+                        .OfType<QuestPart_ExtraFaction>()
+                        .Where(qp => qp.affectedPawns.Contains(pawn))
+                        .Select(qp => qp.extraFaction));
+            }
+
         }
     }
 }
