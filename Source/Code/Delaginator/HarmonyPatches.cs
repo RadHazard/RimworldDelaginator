@@ -1,4 +1,6 @@
-﻿using Verse;
+﻿using System.Reflection;
+using HarmonyLib;
+using Verse;
 
 namespace Delaginator
 {
@@ -7,8 +9,8 @@ namespace Delaginator
     {
         static HarmonyPatches()
         {
-            //var harmony = new Harmony("pausbrak.delaginator");
-            //harmony.PatchAll(Assembly.GetExecutingAssembly());
+            var harmony = new Harmony("pausbrak.delaginator");
+            harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
     }
 }

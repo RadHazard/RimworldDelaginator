@@ -5,7 +5,7 @@ using Verse;
 namespace DelaginatorIdeology.AltarSharing
 {
     [HarmonyPatch(typeof(ThoughtWorker_Precept_AltarSharing))]
-    static class Patch_ThoughtWorker_Precept_AltarSharing
+    static class AltarSharingPatch
     {
         [HarmonyPatch("ShouldHaveThought")]
         [HarmonyPrefix]
@@ -19,7 +19,7 @@ namespace DelaginatorIdeology.AltarSharing
             return true;
         }
 
-        [HarmonyPatch("PostProcessDescription")]
+        [HarmonyPatch(nameof(ThoughtWorker_Precept_AltarSharing.PostProcessDescription))]
         [HarmonyPrefix]
         private static bool PostProcessDescriptionPatch(Pawn p, string description, ref string __result)
         {
