@@ -95,7 +95,7 @@ namespace Delaginator.QuestFactions
 
             // If the quest is ongoing, factions were already included in the cache.
             // If not, we need to add them ourselves
-            if (forQuest?.State != QuestState.Ongoing)
+            if (forQuest != null && forQuest.State != QuestState.Ongoing)
             {
                 outExtraFactions.AddRange(forQuest.PartsListForReading
                         .OfType<QuestPart_ExtraFaction>()
