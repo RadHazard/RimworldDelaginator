@@ -20,9 +20,12 @@ namespace Delaginator.QuestFactions
         [HarmonyPostfix]
         private static void ReplacePawnReferencesPatch(Pawn replace, Pawn with, QuestPart_ExtraFaction __instance)
         {
-            // Notify the cache of the removed and added pawns
-            GameComp_QuestFactionCache.Comp.PawnRemoved(replace, __instance.extraFaction);
-            GameComp_QuestFactionCache.Comp.PawnAdded(with, __instance.extraFaction);
+            if (__instance.affectedPawns.Contains(with)) // Only call this if the pawn was actually replaced
+            {
+                // Notify the cache of the removed and added pawns
+                GameComp_QuestFactionCache.Comp.PawnRemoved(replace, __instance.extraFaction);
+                GameComp_QuestFactionCache.Comp.PawnAdded(with, __instance.extraFaction);
+            }
         }
     }
 }
