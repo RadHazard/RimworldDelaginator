@@ -17,24 +17,25 @@ namespace Delaginator.QuestFactions
         private readonly HashSet<Quest> activeQuestCache = new HashSet<Quest>();
         private readonly MultiDict<Pawn, ExtraFaction> pawnFactionCache = new MultiDict<Pawn, ExtraFaction>();
 
-        // Note that this constructor has to exist or the game can't create the comp
-        public GameComp_QuestFactionCache(Game game) { }
+        private bool loaded;
+
+        public GameComp_QuestFactionCache(Game game)
+        {
+            Comp = game.GetComponent<GameComp_QuestFactionCache>();
+        }
 
         /// <summary>
-        /// Finalizes the initialization.
+        /// Reloads the quest cache
         /// </summary>
-        public override void FinalizeInit()
+        public void ReloadCaches()
         {
-            base.FinalizeInit();
-            Comp = Current.Game.GetComponent<GameComp_QuestFactionCache>();
-
+            activeQuestCache.Clear();
+            pawnFactionCache.Clear();
             foreach (var quest in Find.QuestManager.QuestsListForReading.Where(q => q.State == QuestState.Ongoing))
             {
                 QuestInitiated(quest);
             }
         }
-
-        //public override void 
 
         /// <summary>
         /// Called when a new quest is initated
@@ -88,6 +89,17 @@ namespace Delaginator.QuestFactions
         /// <param name="forQuest">For quest.</param>
         public void GetExtraFactionsCached(Pawn pawn, List<ExtraFaction> outExtraFactions, Quest forQuest)
         {
+            // This is annoying, but we can't do the cache loading in the initialization. The game initializes maps before
+            // game components are initialized, and the maps trigger a WealthWatcher recount on initialization, which uses
+            // this method.  WorldComponents are initialized earlier, but that happens so early it's before references are
+            // even resolved, so we wouldn't have been able to build the cache at that point.
+            // Ludeon, why isn't there a PostResolveReferences() method? :(
+            if (!loaded)
+            {
+                ReloadCaches();
+                loaded = true;
+            }
+
             // Note that the faction cache includes all factions from all Ongoing quests.
             // Vanilla always checks those, even if forQuest is set
             outExtraFactions.Clear();
