@@ -6,17 +6,15 @@ namespace DelaginatorIdeology
 
     public class DelaginatorIdeologyMod : Mod
     {
-        DelaginatorIdeologySettings settings;
-
         /// <summary>
         /// A convenience property to get the settings statically
         /// </summary>
         /// <value>The settings.</value>
-        public static DelaginatorIdeologySettings Settings => LoadedModManager.GetMod<DelaginatorIdeologyMod>().settings;
+        public static DelaginatorIdeologySettings Settings { get; private set; }
 
         public DelaginatorIdeologyMod(ModContentPack content) : base(content)
         {
-            settings = GetSettings<DelaginatorIdeologySettings>();
+            Settings = GetSettings<DelaginatorIdeologySettings>();
         }
 
         /// <summary>
@@ -28,7 +26,7 @@ namespace DelaginatorIdeology
             Listing_Standard listingStandard = new Listing_Standard();
             listingStandard.Begin(inRect);
             //TODO translate
-            listingStandard.CheckboxLabeled("Altar Sharing", ref settings.altarSharing, "Patches the Shared Altar thought with a more performant check");
+            listingStandard.CheckboxLabeled("Altar Sharing", ref Settings.altarSharing, "Patches the Shared Altar thought with a more performant check");
 
             listingStandard.End();
         }

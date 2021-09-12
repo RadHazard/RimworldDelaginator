@@ -6,17 +6,15 @@ namespace Delaginator
 
     public class DelaginatorMod : Mod
     {
-        DelaginatorSettings settings;
-
         /// <summary>
         /// A convenience property to get the settings statically
         /// </summary>
         /// <value>The settings.</value>
-        public static DelaginatorSettings Settings => LoadedModManager.GetMod<DelaginatorMod>().settings;
+        public static DelaginatorSettings Settings { get; private set; }
 
         public DelaginatorMod(ModContentPack content) : base(content)
         {
-            settings = GetSettings<DelaginatorSettings>();
+            Settings = GetSettings<DelaginatorSettings>();
         }
 
         /// <summary>
@@ -28,7 +26,7 @@ namespace Delaginator
             Listing_Standard listingStandard = new Listing_Standard();
             listingStandard.Begin(inRect);
             //TODO translate
-            listingStandard.CheckboxLabeled("Quest Factions", ref settings.getExtraFactions, "Patches the method to get factions from quests with a version that uses a cache");
+            listingStandard.CheckboxLabeled("Quest Factions", ref Settings.getExtraFactions, "Patches the method to get factions from quests with a version that uses a cache");
 
             listingStandard.End();
         }

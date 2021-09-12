@@ -12,6 +12,7 @@ namespace Delaginator.QuestFactions
     public class GameComp_QuestFactionCache : GameComponent
     {
         // Cache the comp because it gets referenced a lot
+        // Note that the cache must be reset any time a new game is loaded
         public static GameComp_QuestFactionCache Comp { get; private set; }
 
         private readonly HashSet<Quest> activeQuestCache = new HashSet<Quest>();
@@ -21,7 +22,7 @@ namespace Delaginator.QuestFactions
 
         public GameComp_QuestFactionCache(Game game)
         {
-            Comp = game.GetComponent<GameComp_QuestFactionCache>();
+            Comp = this;
         }
 
         /// <summary>
