@@ -11,6 +11,8 @@ namespace Delaginator.QuestFactions
     /// </summary>
     public class GameComp_QuestFactionCache : GameComponent
     {
+        private const int CHECK_RATE = 10000; // Once every 4 in-game hours
+
         // Cache the comp because it gets referenced a lot
         // Note that the cache must be reset any time a new game is loaded
         public static GameComp_QuestFactionCache Comp { get; private set; }
@@ -23,6 +25,76 @@ namespace Delaginator.QuestFactions
         public GameComp_QuestFactionCache(Game game)
         {
             Comp = this;
+        }
+
+        /// <summary>
+        /// Called every tick
+        /// </summary>
+        public override void GameComponentTick()
+        {
+            // Do some error checking every now and again so we can be sure the quest cache isn't breaking because of mods
+            bool error = false;
+            int hashTick = Find.TickManager.TicksGame % CHECK_RATE;
+
+            // Spread out the error checking over different ticks
+            if (hashTick == 0)
+            {
+                // Check no inactive quests are in the cache
+                foreach (var quest in activeQuestCache)
+                {
+                    if (quest.State != QuestState.Ongoing)
+                    {
+                        Log.Error($"[Delaginator] Quest {quest.name} was in the active quest cache but is not active" +
+                            $"(was {quest.State}). Is another mod ending quests improperly?");
+                        error = true;
+                    }
+                }
+            }
+            else if (hashTick == CHECK_RATE / 3)
+            {
+                // Check all active quests are in cache
+                foreach (var quest in Find.QuestManager.QuestsListForReading)
+                {
+                    if (quest.State == QuestState.Ongoing && !activeQuestCache.Contains(quest))
+                    {
+                        Log.Error($"[Delaginator] Quest {quest.name} was not in the active quest cache but is active." +
+                            " Is another mod starting quests improperly?");
+                        error = true;
+                    }
+                }
+            }
+            else if (hashTick == CHECK_RATE * 2 / 3)
+            {
+                // Check all appropriate pawns are in the cache
+                HashSet<Pawn> pawns = activeQuestCache.SelectMany(q => q.PartsListForReading)
+                        .OfType<QuestPart_ExtraFaction>()
+                        .SelectMany(qp => qp.affectedPawns)
+                        .ToHashSet();
+                HashSet<Pawn> cachedPawns = pawnFactionCache.Keys.ToHashSet();
+
+                if (!pawns.SetEquals(cachedPawns))
+                {
+                    foreach (var pawn in pawns.Where(p => !cachedPawns.Contains(p)))
+                    {
+                        Log.Error($"[Delaginator] Pawn {pawn.LabelShort} should have been in quest faction cache but was not." +
+                            " Is another mod adding pawns to quest factions improperly?");
+                        error = true;
+                    }
+
+                    foreach (var pawn in cachedPawns.Where(p => !pawns.Contains(p)))
+                    {
+                        Log.Error($"[Delaginator] Pawn {pawn.Label} was in quest faction cache but should not have been." +
+                            " Is another mod removing pawns from quest factions improperly?");
+                        error = true;
+                    }
+                }
+            }
+
+            if (error)
+            {
+                Log.Warning("[Delaginator] Resetting the quest faction cache. Disable the 'Quest Factions' patch if this error persists.");
+                ReloadCaches();
+            }
         }
 
         /// <summary>
