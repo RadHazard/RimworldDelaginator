@@ -1,6 +1,10 @@
+.idea/
 .vs/
 obj/
 bin/
 packages/
 
+*.pdb
+
 *.csproj.user
+*.DotSettings.user

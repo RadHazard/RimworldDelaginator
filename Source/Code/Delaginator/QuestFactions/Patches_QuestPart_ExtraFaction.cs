@@ -1,14 +1,17 @@
 ﻿using HarmonyLib;
+using JetBrains.Annotations;
 using RimWorld;
 using Verse;
 
 namespace Delaginator.QuestFactions
 {
     [HarmonyPatch(typeof(QuestPart_ExtraFaction))]
-    public static class Patches_QuestPart_ExtraFaction
+    [UsedImplicitly]
+    internal static class Patches_QuestPart_ExtraFaction
     {
         [HarmonyPatch(nameof(QuestPart_ExtraFaction.Notify_QuestSignalReceived))]
         [HarmonyPostfix]
+        [UsedImplicitly]
         private static void Notify_QuestSignalReceivedPatch(Signal signal, QuestPart_ExtraFaction __instance)
         {
             // Notify the cache if a pawn is removed from the faction
@@ -18,6 +21,7 @@ namespace Delaginator.QuestFactions
 
         [HarmonyPatch(nameof(QuestPart_ExtraFaction.ReplacePawnReferences))]
         [HarmonyPostfix]
+        [UsedImplicitly]
         private static void ReplacePawnReferencesPatch(Pawn replace, Pawn with, QuestPart_ExtraFaction __instance)
         {
             if (__instance.affectedPawns.Contains(with)) // Only call this if the pawn was actually replaced

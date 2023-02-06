@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using RimWorld;
 using Verse;
 
@@ -8,11 +9,12 @@ namespace DelaginatorIdeology.AltarSharing
     /// <summary>
     /// A map component that regularly checks all altars for desecration (so that pawns don't have to do it themselves)
     /// </summary>
+    [UsedImplicitly]
     public class MapComp_AltarSharing : MapComponent
     {
         private const int TICK_INTERVAL = 250;
 
-        private Dictionary<Ideo, Thing> sharedAltars = new Dictionary<Ideo, Thing>();
+        private Dictionary<Ideo, Thing> sharedAltars = new();
 
         private readonly int hashOffset;
 

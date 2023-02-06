@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 using Verse;
 
 namespace DelaginatorIdeology
 {
-
+    [UsedImplicitly]
     public class DelaginatorIdeologyMod : Mod
     {
         /// <summary>
@@ -23,7 +24,7 @@ namespace DelaginatorIdeology
         /// <param name="inRect">In rect.</param>
         public override void DoSettingsWindowContents(Rect inRect)
         {
-            Listing_Standard listingStandard = new Listing_Standard();
+            var listingStandard = new Listing_Standard();
             listingStandard.Begin(inRect);
             //TODO translate
             listingStandard.CheckboxLabeled("Altar Sharing", ref Settings.altarSharing, "Patches the Shared Altar thought with a more performant check");

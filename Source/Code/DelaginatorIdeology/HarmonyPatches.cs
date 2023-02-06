@@ -1,11 +1,13 @@
 ﻿using System.Reflection;
 using HarmonyLib;
+using JetBrains.Annotations;
 using Verse;
 
 namespace DelaginatorIdeology
 {
     [StaticConstructorOnStartup]
-    static class HarmonyPatches
+    [UsedImplicitly]
+    internal static class HarmonyPatches
     {
         static HarmonyPatches()
         {

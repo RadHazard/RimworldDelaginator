@@ -10,7 +10,7 @@ namespace Delaginator.Utilities
     /// </summary>
     public class MultiDict<K, V>
     {
-        private readonly Dictionary<K, List<V>> dict = new Dictionary<K, List<V>>();
+        private readonly Dictionary<K, List<V>> dict = new();
 
         /// <summary>
         /// Gets or sets all the values with the specified key at once.  An empty or
@@ -55,7 +55,7 @@ namespace Delaginator.Utilities
         /// <param name="value">Value.</param>
         public void Add(K key, V value)
         {
-            if (!dict.TryGetValue(key, out List<V> list))
+            if (!dict.TryGetValue(key, out var list))
             {
                 list = new List<V>();
                 dict[key] = list;
@@ -79,7 +79,7 @@ namespace Delaginator.Utilities
         /// <param name="values">Values.</param>
         public void Add(K key, IEnumerable<V> values)
         {
-            if (!dict.TryGetValue(key, out List<V> list))
+            if (!dict.TryGetValue(key, out var list))
             {
                 list = new List<V>();
                 dict[key] = list;
@@ -96,7 +96,7 @@ namespace Delaginator.Utilities
         }
 
         /// <summary>
-        /// Checkes whether the dictionary contains the specific value
+        /// Checks whether the dictionary contains the specific value
         /// </summary>
         /// <returns><see langword="true"/> if the value is contained, <see langword="false"/> otherwise.</returns>
         /// <param name="value">The value.</param>
@@ -106,7 +106,7 @@ namespace Delaginator.Utilities
         }
 
         /// <summary>
-        /// Checkes whether the dictionary contains the specific value under the give key
+        /// Checks whether the dictionary contains the specific value under the give key
         /// </summary>
         /// <returns><see langword="true"/> if the value is contained, <see langword="false"/> otherwise.</returns>
         /// <param name="key">The key.</param>
@@ -117,7 +117,7 @@ namespace Delaginator.Utilities
         }
 
         /// <summary>
-        /// Checkes whether the dictionary contains the specific value under the given key
+        /// Checks whether the dictionary contains the specific value under the given key
         /// </summary>
         /// <returns><see langword="true"/> if the value is contained, <see langword="false"/> otherwise.</returns>
         /// <param name="item">The key-value pair.</param>
@@ -127,7 +127,7 @@ namespace Delaginator.Utilities
         }
 
         /// <summary>
-        /// Checkes whether the dictionary contains the specific key
+        /// Checks whether the dictionary contains the specific key
         /// </summary>
         /// <returns><see langword="true"/> if the value is contained, <see langword="false"/> otherwise.</returns>
         /// <param name="key">Item.</param>
@@ -163,7 +163,7 @@ namespace Delaginator.Utilities
         /// <param name="value">Value.</param>
         public bool Remove(K key, V value)
         {
-            if (dict.TryGetValue(key, out List<V> list))
+            if (dict.TryGetValue(key, out var list))
             {
                 return list.Remove(value);
             }
@@ -188,12 +188,9 @@ namespace Delaginator.Utilities
         /// <param name="values">Values.</param>
         public bool Remove(K key, IEnumerable<V> values)
         {
-            if (dict.TryGetValue(key, out List<V> list))
+            if (dict.TryGetValue(key, out var list))
             {
-                bool ret = false;
-                foreach (V v in values)
-                    ret |= list.Remove(v);
-                return ret;
+                return values.Any(list.Remove);
             }
             return false;
         }
@@ -206,7 +203,7 @@ namespace Delaginator.Utilities
         /// <param name="values">Values.</param>
         public bool TryGetValue(K key, out IEnumerable<V> values)
         {
-            bool ret = dict.TryGetValue(key, out List<V> list);
+            var ret = dict.TryGetValue(key, out var list);
             values = list ?? Enumerable.Empty<V>();
             return ret;
         }

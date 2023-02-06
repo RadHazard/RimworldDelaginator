@@ -1,2 +1,2 @@
-/Assemblies/*.pdb
-/Assemblies/*.xml
+**/Assemblies/*.pdb
+**/Assemblies/*.xml

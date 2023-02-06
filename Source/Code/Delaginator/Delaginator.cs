@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 using Verse;
 
 namespace Delaginator
 {
-
+    [UsedImplicitly]
     public class DelaginatorMod : Mod
     {
         /// <summary>

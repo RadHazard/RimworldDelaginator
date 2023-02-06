@@ -1,14 +1,17 @@
 ﻿using HarmonyLib;
+using JetBrains.Annotations;
 using RimWorld;
 using Verse;
 
 namespace DelaginatorIdeology.AltarSharing
 {
     [HarmonyPatch(typeof(ThoughtWorker_Precept_AltarSharing))]
-    static class AltarSharingPatch
+    [UsedImplicitly]
+    internal static class AltarSharingPatch
     {
         [HarmonyPatch("ShouldHaveThought")]
         [HarmonyPrefix]
+        [UsedImplicitly]
         private static bool ShouldHaveThoughtPatch(Pawn p, ref ThoughtState __result)
         {
             if (DelaginatorIdeologyMod.Settings.altarSharing)
@@ -21,6 +24,7 @@ namespace DelaginatorIdeology.AltarSharing
 
         [HarmonyPatch(nameof(ThoughtWorker_Precept_AltarSharing.PostProcessDescription))]
         [HarmonyPrefix]
+        [UsedImplicitly]
         private static bool PostProcessDescriptionPatch(Pawn p, string description, ref string __result)
         {
             if (DelaginatorIdeologyMod.Settings.altarSharing)
