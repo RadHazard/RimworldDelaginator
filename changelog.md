@@ -1,3 +1,14 @@
+# v1.1.0 - 1.4
+**General**
+- Updated to 1.4
+**Debugging**
+- Patched WorldPawnGC.AddAllRelationships() to fix an NPE that could occur if there was an issue fetching relationships
+- Added a world pawn logging function that displays more information about world pawns, including why they are being kept around.
+**Patches - Base game**
+- Clean up dead world pawn pregnancies before garbage collection
+  - Previously, dead world pawns with pregnancies were keeping themselves permanantly around, because the pregnancy hediff was reserving both parents and never got removed.  This could cascade and cause all of their relatives to be kept around even after they should have been garbage collected.
+  - Now, before every garbage collection run, every world pawn that is dead and destroyed (meaning they will never come back) has any pregnancy hediffs removed.  This removes the reservation and allows them and their relatives to be garbage collected as normal.
+
 # v1.0.0 - Initial Release
 **Patches - Base game**
 - Optimize the "Get Extra Faction" call for pawns

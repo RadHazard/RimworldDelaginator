@@ -17,10 +17,10 @@ namespace Delaginator.QuestFactions
 
         // Cache the comp because it gets referenced a lot
         // Note that the cache must be reset any time a new game is loaded
-        public static GameComp_QuestFactionCache Comp { get; private set; }
+        public static GameComp_QuestFactionCache Comp { get; private set; } = null!;
 
-        private readonly HashSet<Quest> activeQuestCache = new HashSet<Quest>();
-        private readonly MultiDict<Pawn, ExtraFaction> pawnFactionCache = new MultiDict<Pawn, ExtraFaction>();
+        private readonly HashSet<Quest> activeQuestCache = new();
+        private readonly MultiDict<Pawn, ExtraFaction> pawnFactionCache = new();
 
         private bool loaded;
 
@@ -171,7 +171,7 @@ namespace Delaginator.QuestFactions
         /// <param name="pawn">Pawn.</param>
         /// <param name="outExtraFactions">Out extra factions.</param>
         /// <param name="forQuest">For quest.</param>
-        public void GetExtraFactionsCached(Pawn pawn, List<ExtraFaction> outExtraFactions, Quest forQuest)
+        public void GetExtraFactionsCached(Pawn pawn, List<ExtraFaction> outExtraFactions, Quest? forQuest)
         {
             // This is annoying, but we can't do the cache loading in the initialization. The game initializes maps before
             // game components are initialized, and the maps trigger a WealthWatcher recount on initialization, which uses

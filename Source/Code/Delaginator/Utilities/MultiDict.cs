@@ -19,11 +19,10 @@ namespace Delaginator.Utilities
         /// <param name="key">Key.</param>
         public IEnumerable<V> this[K key]
         {
-            get => dict.TryGetValue(key) ?? Enumerable.Empty<V>();
+            get => dict!.TryGetValue(key) ?? Enumerable.Empty<V>();
             set
             {
-                var val = value?.ToList();
-                if (val != null && val.Count > 0)
+                if (value?.ToList() is { Count: > 0 } val)
                     dict[key] = val;
                 else
                     dict.Remove(key);

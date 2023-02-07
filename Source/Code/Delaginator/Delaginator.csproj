@@ -9,12 +9,13 @@
     <AssemblyName>Delaginator</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <RimworldFolder Condition=" '$(RimworldFolder)' == '' ">..\..\..\..\..\RimWorldWin64_Data</RimworldFolder>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\1.3\Assemblies</OutputPath>
+    <OutputPath>..\..\..\1.4\Assemblies</OutputPath>
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -23,7 +24,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\1.3\Assemblies</OutputPath>
+    <OutputPath>..\..\..\1.4\Assemblies</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -43,12 +44,20 @@
       <HintPath>$(RimworldFolder)\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="0Harmony">
-      <HintPath>..\packages\Lib.Harmony.2.1.1\lib\net472\0Harmony.dll</HintPath>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>$(RimworldFolder)\Managed\UnityEngine.IMGUIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Lib.Harmony">
+      <Version>2.2.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Debug\DebugOutputWorldPawns_Delaginator.cs" />
+    <Compile Include="Debug\Patches_FixGC.cs" />
+    <Compile Include="Debug\WorldPawnDebugInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HarmonyPatches.cs" />
     <Compile Include="QuestFactions\Patches_QuestUtility.cs" />
@@ -57,13 +66,11 @@
     <Compile Include="Utilities\MultiDict.cs" />
     <Compile Include="QuestFactions\Patches_Quest.cs" />
     <Compile Include="QuestFactions\Patches_QuestPart_ExtraFaction.cs" />
+    <Compile Include="WorldPawns\Patches_CleanDeadPregnancies.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="QuestFactions\" />
     <Folder Include="Utilities\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

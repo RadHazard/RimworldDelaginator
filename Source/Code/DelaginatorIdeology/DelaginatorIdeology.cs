@@ -11,7 +11,7 @@ namespace DelaginatorIdeology
         /// A convenience property to get the settings statically
         /// </summary>
         /// <value>The settings.</value>
-        public static DelaginatorIdeologySettings Settings { get; private set; }
+        public static DelaginatorIdeologySettings Settings { get; private set; } = null!;
 
         public DelaginatorIdeologyMod(ModContentPack content) : base(content)
         {

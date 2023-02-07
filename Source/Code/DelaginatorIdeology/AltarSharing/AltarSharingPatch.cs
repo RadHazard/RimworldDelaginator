@@ -35,7 +35,7 @@ namespace DelaginatorIdeology.AltarSharing
             return true;
         }
 
-        private static Thing SharedAltar(Pawn pawn)
+        private static Thing? SharedAltar(Pawn pawn)
         {
             if (!pawn.Spawned || pawn.Ideo == null)
                 return null;

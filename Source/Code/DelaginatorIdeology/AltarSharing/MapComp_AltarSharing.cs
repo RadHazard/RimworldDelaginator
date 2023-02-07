@@ -49,9 +49,9 @@ namespace DelaginatorIdeology.AltarSharing
         /// </summary>
         /// <returns>The altar.</returns>
         /// <param name="ideo">Ideo.</param>
-        public Thing SharedAltar(Ideo ideo)
+        public Thing? SharedAltar(Ideo ideo)
         {
-            return sharedAltars.TryGetValue(ideo);
+            return sharedAltars!.TryGetValue(ideo);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace DelaginatorIdeology.AltarSharing
                 {
                     foreach (var (thing, ideo) in room)
                     {
-                        sharedAltars[ideo] = thing;
+                        sharedAltars[ideo!] = thing;
                     }
                 }
             }
@@ -86,7 +86,7 @@ namespace DelaginatorIdeology.AltarSharing
         /// </summary>
         /// <returns>The ideo.</returns>
         /// <param name="thing">Thing.</param>
-        private static (Thing thing, Ideo ideo) GetThingAndIdeo(Thing thing)
+        private static (Thing thing, Ideo? ideo) GetThingAndIdeo(Thing thing)
         {
             return (thing, thing.TryGetComp<CompStyleable>()?.SourcePrecept?.ideo);
         }

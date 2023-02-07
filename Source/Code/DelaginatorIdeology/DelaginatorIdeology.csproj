@@ -7,11 +7,12 @@
     <AssemblyName>DelaginatorIdeology</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <RimworldFolder Condition=" '$(RimworldFolder)' == '' ">..\..\..\..\..\RimWorldWin64_Data</RimworldFolder>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>../../../1.3/Ideology/Assemblies</OutputPath>
+    <OutputPath>../../../1.4/Ideology/Assemblies</OutputPath>
     <DefineConstants>DEBUG;</DefineConstants>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>false</NoStdLib>
@@ -19,7 +20,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
-    <OutputPath>../../../1.3/Ideology/Assemblies</OutputPath>
+    <OutputPath>../../../1.4/Ideology/Assemblies</OutputPath>
     <WarningLevel>4</WarningLevel>
     <LangVersion>Latest</LangVersion>
   </PropertyGroup>
@@ -50,16 +51,14 @@
       <HintPath>$(RimworldFolder)\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="0Harmony">
-      <HintPath>..\packages\Lib.Harmony.2.1.1\lib\net472\0Harmony.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Lib.Harmony">
+      <Version>2.2.2</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AltarSharing\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
